@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>مهامي — إدارة المهام</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="preload" as="image" href="{{ asset('storage/background/task/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/task/ima2.webp') }}">
+        <link rel="preload" as="image" href="{{ asset('/background/task/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/task/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/task.css') }}">
 
 </head>
@@ -266,10 +266,10 @@
 
             (function() {
                 const imgs = [
-                    "{{ asset('storage/background/task/ima1.jpg') }}",
-                    "{{ asset('storage/background/task/ima2.jpg') }}",
-                    "{{ asset('storage/background/task/ima3.jpg') }}",
-                    "{{ asset('storage/background/task/ima4.jpg') }}"
+                    "{{ asset('/background/task/ima1.jpg') }}",
+                    "{{ asset('/background/task/ima2.jpg') }}",
+                    "{{ asset('/background/task/ima3.jpg') }}",
+                    "{{ asset('/background/task/ima4.jpg') }}"
                 ];
                 const A = document.getElementById('bgA'),
                     B = document.getElementById('bgB');

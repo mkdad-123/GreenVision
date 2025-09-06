@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>معداتّي — إدارة المعدّات</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="preload" as="image" href="{{ asset('storage/background/equipment/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/equipment/ima2.webp') }}">
+    <link rel="preload" as="image" href="{{ asset('/background/equipment/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/equipment/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/equipment.css') }}">
 
 </head>
@@ -261,10 +261,10 @@
 
             (function() {
                 const bgImages = [
-                    "{{ asset('storage/background/equipment/ima1.jpg') }}",
-                    "{{ asset('storage/background/equipment/ima2.jpg') }}",
-                    "{{ asset('storage/background/equipment/ima3.jpg') }}",
-                    "{{ asset('storage/background/equipment/ima4.jpg') }}"
+                    "{{ asset('/background/equipment/ima1.jpg') }}",
+                    "{{ asset('/background/equipment/ima2.jpg') }}",
+                    "{{ asset('/background/equipment/ima3.jpg') }}",
+                    "{{ asset('/background/equipment/ima4.jpg') }}"
                 ];
                 const A = document.getElementById('bgA'),
                     B = document.getElementById('bgB');

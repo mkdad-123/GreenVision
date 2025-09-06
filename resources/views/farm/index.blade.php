@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>مزارعي — إدارة المزارع</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="preload" as="image" href="{{ asset('/background/farm/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/farm/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/farm.css') }}">
 
 
@@ -269,10 +271,10 @@
 
             (function() {
                 const bgImages = [
-                    "{{ asset('storage/background/farm/ima2.jpg') }}",
-                    "{{ asset('storage/background/farm/ima1.jpg') }}",
-                    "{{ asset('storage/background/farm/ima3.jpg') }}",
-                    "{{ asset('storage/background/farm/ima4.jpg') }}"
+                    "{{ asset('/background/farm/ima2.jpg') }}",
+                    "{{ asset('/background/farm/ima1.jpg') }}",
+                    "{{ asset('/background/farm/ima3.jpg') }}",
+                    "{{ asset('/background/farm/ima4.jpg') }}"
                 ];
                 const A = document.getElementById('bgA'),
                     B = document.getElementById('bgB');

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>الشكاوى والمقترحات</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="preload" as="image" href="{{ asset('storage/background/comp/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/comp/ima2.webp') }}">
+        <link rel="preload" as="image" href="{{ asset('/background/comp/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/comp/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/compliant.css') }}">
 
 
@@ -74,8 +74,8 @@
 
             (function() {
                 const imgs = [
-                    "{{ asset('storage/background/comp/ima1.jpg') }}",
-                    "{{ asset('storage/background/comp/ima2.jpg') }}",
+                    "{{ asset('/background/comp/ima1.jpg') }}",
+                    "{{ asset('/background/comp/ima2.jpg') }}",
 
                 ];
                 const A = document.getElementById('bgA'),

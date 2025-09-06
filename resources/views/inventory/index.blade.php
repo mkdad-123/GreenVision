@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>مخازني — إدارة المخزون</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="preload" as="image" href="{{ asset('storage/background/inventory/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/inventory/ima2.webp') }}">
+    <link rel="preload" as="image" href="{{ asset('/background/inventory/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/inventory/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/inventory.css') }}">
 
 </head>
@@ -249,10 +249,10 @@
 
             (function() {
                 const imgs = [
-                    "{{ asset('storage/background/inventory/ima1.jpg') }}",
-                    "{{ asset('storage/background/inventory/ima2.jpg') }}",
-                    "{{ asset('storage/background/inventory/ima3.jpg') }}",
-                    "{{ asset('storage/background/inventory/ima4.jpg') }}"
+                    "{{ asset('/background/inventory/ima1.jpg') }}",
+                    "{{ asset('/background/inventory/ima2.jpg') }}",
+                    "{{ asset('/background/inventory/ima3.jpg') }}",
+                    "{{ asset('/background/inventory/ima4.jpg') }}"
                 ];
                 const A = document.getElementById('bgA'),
                     B = document.getElementById('bgB');

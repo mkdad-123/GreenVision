@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>الصفحة الرئيسية — Nature UI</title>
-    <link rel="preload" as="image" href="{{ asset('storage/background/home/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/home/ima2.webp') }}">
+    <link rel="preload" as="image" href="{{ asset('/background/home/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/home/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
 </head>
@@ -111,10 +111,10 @@
     <script>
         (function() {
             const bgImages = [
-                "{{ asset('storage/background/home/ima1.jpg') }}",
-                "{{ asset('storage/background/home/ima2.jpg') }}",
-                "{{ asset('storage/background/home/ima3.jpg') }}",
-                "{{ asset('storage/background/home/ima4.jpg') }}"
+                "{{ asset('/background/home/ima1.jpg') }}",
+                "{{ asset('/background/home/ima2.jpg') }}",
+                "{{ asset('/background/home/ima3.jpg') }}",
+                "{{ asset('/background/home/ima4.jpg') }}"
             ];
             const a = document.getElementById('bgA');
             const b = document.getElementById('bgB');

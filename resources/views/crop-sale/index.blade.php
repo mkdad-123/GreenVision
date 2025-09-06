@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>مبيعات المحاصيل — إدارة المبيعات</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="preload" as="image" href="{{ asset('storage/background/crop_sale/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/crop_sale/ima2.webp') }}">
+        <link rel="preload" as="image" href="{{ asset('/background/crop_sale/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/crop_sale/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/crop_sale.css') }}">
 
 </head>
@@ -303,10 +303,10 @@
 
             (function() {
                 const imgs = [
-                    "{{ asset('storage/background/crop_sale/ima1.jpg') }}",
-                    "{{ asset('storage/background/crop_sale/ima2.jpg') }}",
-                    "{{ asset('storage/background/crop_sale/ima3.jpg') }}",
-                    "{{ asset('storage/background/crop_sale/ima4.jpg') }}",
+                    "{{ asset('/background/crop_sale/ima1.jpg') }}",
+                    "{{ asset('/background/crop_sale/ima2.jpg') }}",
+                    "{{ asset('/background/crop_sale/ima3.jpg') }}",
+                    "{{ asset('/background/crop_sale/ima4.jpg') }}",
                 ];
                 const A = document.getElementById('bgA'),
                     B = document.getElementById('bgB');

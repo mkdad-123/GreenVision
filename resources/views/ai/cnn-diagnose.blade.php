@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>تشخيص الأمراض بالصور — CNN + KBS</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="preload" as="image" href="{{ asset('storage/background/ai/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/ai/ima2.webp') }}">
+        <link rel="preload" as="image" href="{{ asset('/background/ai/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/ai/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/ai.css') }}">
 
 
@@ -481,10 +481,10 @@
         })();
         (function() {
             const bgImages = [
-                "{{ asset('storage/background/diag/ima1.jpg') }}",
-                "{{ asset('storage/background/diag/ima2.jpg') }}",
-                "{{ asset('storage/background/diag/ima3.jpg') }}",
-                "{{ asset('storage/background/diagima4.jpg') }}"
+                "{{ asset('/background/diag/ima1.jpg') }}",
+                "{{ asset('/background/diag/ima2.jpg') }}",
+                "{{ asset('/background/diag/ima3.jpg') }}",
+                "{{ asset('/background/diagima4.jpg') }}"
             ];
 
             if (!bgImages.length) return;

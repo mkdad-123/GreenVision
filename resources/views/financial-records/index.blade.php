@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>سجلاتي المالية — إدارة السجلات</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="preload" as="image" href="{{ asset('storage/background/fin_rec/ima1.webp') }}" fetchpriority="high">
-    <link rel="preload" as="image" href="{{ asset('storage/background/fin_rec/ima2.webp') }}">
+    <link rel="preload" as="image" href="{{ asset('/background/fin_rec/ima1.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('/background/fin_rec/ima2.webp') }}">
     <link rel="stylesheet" href="{{ asset('css/fin_rec.css') }}">
 
 </head>
@@ -269,10 +269,10 @@
 
             (function() {
                 const imgs = [
-                    "{{ asset('storage/background/fin_rec/ima1.jpg') }}",
-                    "{{ asset('storage/background/fin_rec/ima2.jpg') }}",
-                    "{{ asset('storage/background/fin_rec/ima3.jpg') }}",
-                    "{{ asset('storage/background/fin_rec/ima4.jpg') }}",
+                    "{{ asset('/background/fin_rec/ima1.jpg') }}",
+                    "{{ asset('/background/fin_rec/ima2.jpg') }}",
+                    "{{ asset('/background/fin_rec/ima3.jpg') }}",
+                    "{{ asset('/background/fin_rec/ima4.jpg') }}",
                 ];
                 const A = document.getElementById('bgA'),
                     B = document.getElementById('bgB');
