@@ -7,8 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>تسجيل الدخول — Nature UI</title>
-    <link rel="stylesheet" href="{{ asset('css/nature.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/login_user.css') }}">
+    @vite(['resources/css/login_user.css'])
 
 
 </head>

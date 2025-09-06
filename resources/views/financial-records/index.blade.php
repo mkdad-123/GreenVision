@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preload" as="image" href="{{ asset('/background/fin_rec/ima1.webp') }}" fetchpriority="high">
     <link rel="preload" as="image" href="{{ asset('/background/fin_rec/ima2.webp') }}">
-    <link rel="stylesheet" href="{{ asset('css/fin_rec.css') }}">
+    @vite(['resources/css/fin_rec.css'])
 
 </head>
 
