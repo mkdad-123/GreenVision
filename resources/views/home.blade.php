@@ -7,7 +7,7 @@
     <title>الصفحة الرئيسية — Nature UI</title>
     <link rel="preload" as="image" href="{{ asset('/background/home/ima1.webp') }}" fetchpriority="high">
     <link rel="preload" as="image" href="{{ asset('/background/home/ima2.webp') }}">
-    @vite(['resources/css/home.css'])
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
 </head>
 
