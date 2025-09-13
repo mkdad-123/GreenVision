@@ -11,7 +11,7 @@ class AuthAdminController extends Controller
     public function showLoginForm()
     {
         if (auth('admin')->check()) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('dashboard');
         }
         return view('admin.auth.login');
     }

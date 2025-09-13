@@ -725,12 +725,12 @@
                     </div>
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)">
                         <input type="checkbox" name="remember" value="1" style="width:16px;height:16px"
                             {{ old('remember') ? 'checked' : '' }}> تذكرني
                     </label>
-                </div>
+                </div> --}}
 
                 <button class="btn" type="submit" style="margin-top:6px">تسجيل الدخول</button>
                 <button type="button" class="btn"
