@@ -14,26 +14,28 @@ class AiDiagnoseController extends Controller
     {
         $user = $request->user("user"); // تأكد أن الراوت محمي auth:sanctum مثلاً
         if (!$user) {
-            return response()->json(['ok'=>false,'error'=>'UNAUTHENTICATED'], 401);
+            return response()->json(['ok' => false, 'error' => 'UNAUTHENTICATED'], 401);
         }
 
         // 1) التحقق
         $data = $request->validate([
-            'image'         => ['required','file','image','mimes:jpg,jpeg,png','max:5120'],
-            'top_n'         => ['nullable','integer','min:1','max:10'],
-            'max_diseases'  => ['nullable','integer','min:1','max:3'],
+            'image'         => ['required', 'file', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
+            'top_n'         => ['nullable', 'integer', 'min:1', 'max:10'],
+            'max_diseases'  => ['nullable', 'integer', 'min:1', 'max:3'],
         ]);
 
         $topN        = $data['top_n'] ?? 3;
         $maxDiseases = min($data['max_diseases'] ?? 3, 3);
 
         // 2) FastAPI
-        $fastapiEndpoint = rtrim(config('services.fastapi.url'), '/').'/predict';
-        $resp = Http::timeout(40)->attach(
-            'file',
-            file_get_contents($request->file('image')->getRealPath()),
-            $request->file('image')->getClientOriginalName()
-        )->post($fastapiEndpoint);
+        $fastapiEndpoint = rtrim(config('services.fastapi.url'), '/') . '/predict';
+        $resp = Http::withoutVerifying() // تجاهل SSL مؤقتًا
+            ->timeout(40)
+            ->attach(
+                'file',
+                file_get_contents($request->file('image')->getRealPath()),
+                $request->file('image')->getClientOriginalName()
+            )->post($fastapiEndpoint);
 
         if ($resp->failed()) {
             return response()->json([
@@ -56,10 +58,10 @@ class AiDiagnoseController extends Controller
                 'id'              => $p['id'] ?? null,
                 'label'           => $label,
                 'label_ar'        => method_exists(LabelTranslator::class, 'toArabic')
-                                        ? (LabelTranslator::toArabic($label ?? null) ?? $label)
-                                        : $label,
+                    ? (LabelTranslator::toArabic($label ?? null) ?? $label)
+                    : $label,
                 'confidence'      => $conf,
-                'confidence_text' => $conf !== null ? ($conf.'%') : null,
+                'confidence_text' => $conf !== null ? ($conf . '%') : null,
             ];
         }
 
@@ -68,7 +70,7 @@ class AiDiagnoseController extends Controller
         $idsForKBS  = array_slice($diseaseIds, 0, $maxDiseases);
 
         // 5) طلب الأعراض من KBS
-        $kbsEndpoint = rtrim(config('services.kbs.url'), '/').'/cnn/symptoms';
+        $kbsEndpoint = rtrim(config('services.kbs.url'), '/') . '/cnn/symptoms';
         $kbsResp = Http::timeout(40)->post($kbsEndpoint, [
             'ids' => $idsForKBS,
             'max_diseases' => max(1, min($maxDiseases, count($idsForKBS))),
@@ -100,11 +102,11 @@ class AiDiagnoseController extends Controller
                 'instruction'     => $instruction,
                 'symptoms_index'  => [],
                 'symptoms_numbered' => [],
-                'kbs_raw'         => ['ok'=>false,'error'=>'KBS_FAILED','status'=>$kbsResp->status(),'details'=>$kbsResp->json()],
+                'kbs_raw'         => ['ok' => false, 'error' => 'KBS_FAILED', 'status' => $kbsResp->status(), 'details' => $kbsResp->json()],
             ]);
         }
 
-       $kbsJson = $kbsResp->json();
+        $kbsJson = $kbsResp->json();
 
         $rawSymptoms = [];
 
@@ -158,13 +160,13 @@ class AiDiagnoseController extends Controller
             'symptoms_numbered' => $symptomsNumbered, // [{no:1, name:"...", ...}, ...]
             'kbs_raw'           => $kbsJson,
         ]);
-
     }
 
     public function confirmSymptoms(Request $request)
     {
-        $user = $request->user('user');        if (!$user) {
-            return response()->json(['ok'=>false,'error'=>'UNAUTHENTICATED'], 401);
+        $user = $request->user('user');
+        if (!$user) {
+            return response()->json(['ok' => false, 'error' => 'UNAUTHENTICATED'], 401);
         }
 
         // جلب IDs + قاموس الأعراض المُرقّم من المرحلة 1
@@ -187,9 +189,9 @@ class AiDiagnoseController extends Controller
         // 1) إدخال نصي مباشر: observations [{symptom, cf}]
         if ($request->has('observations')) {
             $data = $request->validate([
-                'observations' => ['required','array','min:1'],
-                'observations.*.symptom' => ['required','string'],
-                'observations.*.cf' => ['required','numeric','min:0','max:100'],
+                'observations' => ['required', 'array', 'min:1'],
+                'observations.*.symptom' => ['required', 'string'],
+                'observations.*.cf' => ['required', 'numeric', 'min:0', 'max:100'],
             ]);
 
             foreach ($data['observations'] as $obs) {
@@ -203,22 +205,19 @@ class AiDiagnoseController extends Controller
         // 2) إدخال قديم: selected_symptoms → تحويل لنصي
         elseif ($request->has('selected_symptoms')) {
             $data = $request->validate([
-                'selected_symptoms' => ['required','array','min:1'],
-                'selected_symptoms.*.seen' => ['required','boolean'],
-                'selected_symptoms.*.user_confidence' => ['nullable','numeric','min:0','max:100'],
-                'selected_symptoms.*.name' => ['nullable','string'],
-                'selected_symptoms.*.symptom' => ['nullable','string'],
-                'selected_symptoms.*.text' => ['nullable','string'],
-                'selected_symptoms.*.label' => ['nullable','string'],
+                'selected_symptoms' => ['required', 'array', 'min:1'],
+                'selected_symptoms.*.seen' => ['required', 'boolean'],
+                'selected_symptoms.*.user_confidence' => ['nullable', 'numeric', 'min:0', 'max:100'],
+                'selected_symptoms.*.name' => ['nullable', 'string'],
+                'selected_symptoms.*.symptom' => ['nullable', 'string'],
+                'selected_symptoms.*.text' => ['nullable', 'string'],
+                'selected_symptoms.*.label' => ['nullable', 'string'],
             ]);
 
             foreach ($data['selected_symptoms'] as $s) {
                 if (!empty($s['seen'])) {
                     $symptomName =
-                        (isset($s['name'])    && $s['name']    !== null ? trim($s['name']) :
-                        (isset($s['symptom']) && $s['symptom'] !== null ? trim($s['symptom']) :
-                        (isset($s['text'])    && $s['text']    !== null ? trim($s['text']) :
-                        (isset($s['label'])   && $s['label']   !== null ? trim($s['label']) : null))));
+                        (isset($s['name'])    && $s['name']    !== null ? trim($s['name']) : (isset($s['symptom']) && $s['symptom'] !== null ? trim($s['symptom']) : (isset($s['text'])    && $s['text']    !== null ? trim($s['text']) : (isset($s['label'])   && $s['label']   !== null ? trim($s['label']) : null))));
 
                     if (!$symptomName) {
                         return response()->json([
@@ -241,9 +240,9 @@ class AiDiagnoseController extends Controller
         // 3) ✅ الإدخال الجديد بالأرقام: observations_numbers [{no, cf}]
         elseif ($request->has('observations_numbers')) {
             $data = $request->validate([
-                'observations_numbers' => ['required','array','min:1'],
-                'observations_numbers.*.no' => ['required','integer','min:1'],
-                'observations_numbers.*.cf' => ['required','numeric','min:0','max:100'],
+                'observations_numbers' => ['required', 'array', 'min:1'],
+                'observations_numbers.*.no' => ['required', 'integer', 'min:1'],
+                'observations_numbers.*.cf' => ['required', 'numeric', 'min:0', 'max:100'],
             ]);
 
             if (empty($symptomIndex)) {
@@ -265,10 +264,9 @@ class AiDiagnoseController extends Controller
                 }
                 $name = $symptomIndex[$no];
                 $cf = max(0, min(100, (float)$on['cf']));
-                $observations[] = ['symptom'=>$name, 'cf'=>round($cf, 2)];
+                $observations[] = ['symptom' => $name, 'cf' => round($cf, 2)];
             }
-        }
-        else {
+        } else {
             return response()->json([
                 'ok' => false,
                 'error' => 'NO_OBSERVATIONS_INPUT',
@@ -300,7 +298,7 @@ class AiDiagnoseController extends Controller
             'observations' => $finalObs,
         ];
 
-        $endpoint = rtrim(config('services.kbs.url'), '/').'/cnn/diagnose';
+        $endpoint = rtrim(config('services.kbs.url'), '/') . '/cnn/diagnose';
         $resp = \Illuminate\Support\Facades\Http::timeout(60)->post($endpoint, $payload);
 
         if ($resp->failed()) {
@@ -316,7 +314,7 @@ class AiDiagnoseController extends Controller
         $result = $resp->json();
 
         // (اختياري) التعريب والتنسيق
-        foreach (['results','top'] as $key) {
+        foreach (['results', 'top'] as $key) {
             if (isset($result[$key]) && is_array($result[$key])) {
                 foreach ($result[$key] as &$row) {
                     if (isset($row['disease'])) {
@@ -324,7 +322,7 @@ class AiDiagnoseController extends Controller
                     }
                     if (isset($row['score']) && is_numeric($row['score'])) {
                         $row['score'] = round((float)$row['score'], 2);
-                        $row['score_text'] = $row['score'].'%';
+                        $row['score_text'] = $row['score'] . '%';
                     }
                 }
                 unset($row);
@@ -339,7 +337,4 @@ class AiDiagnoseController extends Controller
             'diagnosis'          => $result,
         ]);
     }
-
-
 }
-
