@@ -28,14 +28,16 @@ class AiDiagnoseController extends Controller
         $maxDiseases = min($data['max_diseases'] ?? 3, 3);
 
         // 2) FastAPI
-        $fastapiEndpoint = rtrim(config('services.fastapi.url'), '/') . '/predict';
-        $resp = Http::withoutVerifying() // تجاهل SSL مؤقتًا
+        $resp = Http::withHeaders([
+            'x-proxy-secret' => config('services.fastapi.secret'),
+        ])
             ->timeout(40)
             ->attach(
                 'file',
                 file_get_contents($request->file('image')->getRealPath()),
                 $request->file('image')->getClientOriginalName()
-            )->post($fastapiEndpoint);
+            )
+            ->post(config('services.fastapi.url') . '/predict');
 
         if ($resp->failed()) {
             return response()->json([

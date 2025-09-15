@@ -37,7 +37,8 @@ return [
 
 
     'fastapi' => [
-        'url' => env('FASTAPI_URL', 'http://127.0.0.1:8001'),
+        'url' => env('FASTAPI_PROXY'),
+        'secret' => env('PROXY_SECRET'),
     ],
     'kbs'     => [
         'url' => env('KBS_URL', 'http://127.0.0.1:9000')
